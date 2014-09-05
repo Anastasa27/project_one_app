@@ -1,0 +1,16 @@
+
+
+<%= @temp_in_farh %>
+
+<% @parsed_version["results"].each do |book| %>
+<% book["book_details"].each do |info| %>
+<ul>
+<%= info["title"] %>
+<%= info["author"] %>
+<%= info["description"] %>
+<%= info["publisher"] %>
+</ul>
+<% end %>
+<% end %>
+
+<%= @tweets[2] %>
