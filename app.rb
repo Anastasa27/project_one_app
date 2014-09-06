@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'twitter'
 require 'httparty'
 require 'json'
-
+require 'pry'
 
 
 class App < Sinatra::Base
@@ -36,6 +36,9 @@ TWITTER_SECRET_KEY = 'TMbxpVO5NisM0E0QN6ese8i2QieFsaMEUgZlTJPuT8klVXPVOF'
 TWITTER_ACCESS_TOKEN = '2790859370-RiHbePsaHNIjdmSV4vWfUMUvCro1mJA4xhbDxyy'
 TWITTER_ACCESS_SECRET_TOKEN = 'vMNh7eTX5Qy99DWXDMs5Vc2HpXPcX64EkpqLex8RdX5Xe'
 NY_TIMES_API_KEY = 'a334d90853f03ea079bda17f9f0fc548:17:69767462'
+IDREAMBOOKS_API_KEY = '31b59ece20986033f5307f7907f7d94e87b4a45f'
+_SECRET_KEY = ''
+
   ########################
   # Routes
   ########################
@@ -62,9 +65,12 @@ end
       @parsed_version = JSON.parse(@ny_times_response)
       #twitter
       @tweets = []
-      TWITTER_CLIENT.search("books bestsellers", :result_type => "recent").take(10).each do |tweet|
-      @tweets.push(tweet)
-  end
+      TWITTER_CLIENT.search("books", :result_type => "recent").take(10).each_with_index do |tweet|
+       @tweets.push(tweet.text)
+      end
+      #good reads
+      @book_reviews = HTTParty.get("http://idreambooks.com/api/books/reviews.json?q=shakespeare&key=31b59ece20986033f5307f7907f7d94e87b4a45f").to_json
+      @parsed_reviews = JSON.parse(@book_reviews)
   render(:erb, :dashboard)
 end
 
