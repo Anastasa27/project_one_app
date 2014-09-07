@@ -2,19 +2,18 @@
 
 <html>
   <head>
+     <title>Everything Books</title>
     <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans+SC' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Alegreya+SC:700' rel='stylesheet' type='text/css'>
     <link href="reset.css" rel="stylesheet" type="text/css" media="all">
     <link rel="stylesheet" type="text/css" href="<%= url("/style.css")%>">
-     <title>Dashboard</title>
+
   </head>
   <body>
-    <header>
-    </header>
+       <%= render(:erb, :header) %>
        <%= yield %>
  </body>
 
-</html>
-
 <footer><a href="/">Home</a><br></br><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://booksdashboa.rd" data-text="Books Dashboard" data-count="none" data-hashtags="booksdashboard">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></footer>
+</html>
