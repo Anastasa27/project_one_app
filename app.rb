@@ -21,10 +21,6 @@ class App < Sinatra::Base
     enable :method_override
     enable :sessions
     set :session_secret, 'super secret'
-    #  @@user_profile = [{
-    #   :user_name  => params[:user_name],
-    #   :user_email => params[:user_email],
-    # }]
   end
 
   before do
@@ -58,8 +54,10 @@ end
   #######################
   #Routes
   #######################
-
-
+# @@user_profile = [{
+#       :user_name  => params[:user_name],
+#       :user_email => params[:user_email],
+#     }]
 
   get('/') do
     render(:erb, :index)
@@ -67,6 +65,18 @@ end
 
   get('/profile/new') do
     render(:erb, :profile_info_form)
+  end
+
+  get("/profile/:id") do
+    @user_profile = @@user_profile
+    @id = params[:id].to_i
+    index = @id - 1
+    @selected_profile = @name[index]
+    render(:erb, :profile)
+  end
+
+  get('/profile') do
+    render(:erb, :profile)
   end
 
 
@@ -109,7 +119,7 @@ end
       :"email"     =>  params["email"],
     }
     add_user_profile_info(new_user)
-    redirect to('/dashboard')
+    redirect to('/profile')
   end
 
   # delete('/profile/:id') do

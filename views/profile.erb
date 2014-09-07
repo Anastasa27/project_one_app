@@ -1,6 +1,12 @@
 
 <section>
   <br></br>
-<h1>Your Profile</h1>
-
+<h1>Profiles</h1>
+<% @id %>
+  <br></br>
+  <ul>
+    <li>Name: <%= @selected_profile[:name] %></li>
+    <li>Email: <%= @selected_profile[:email] %></li>
+  </ul>
+</section>
 
