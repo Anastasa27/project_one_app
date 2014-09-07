@@ -1,6 +1,6 @@
 
 
-<%= @temp_in_farh %>
+ <p>The current temperature is <%= @temp_in_farh %> degrees.</p>
 
 <% @parsed_version["results"].each do |book| %>
 <% book["book_details"].each do |info| %>
@@ -14,15 +14,27 @@
 <% end %>
 <br></br>
 <br></br>
-<%= @tweets %>
-<br></br>
-<br></br>
-<ul>
-<%= @parsed_reviews["book"]["title"] %>
-<%= @parsed_reviews["book"]["author"] %>
-<% @parsed_reviews["book"]["critic_reviews"].each_with_index do |hash, index| %>
-  <%= hash["snippet"] %>
+<% @tweets.each do |tweet| %>
+<ul><%= tweet %></ul>
 <% end %>
+<br></br>
+<br></br>
+<% @parsed_reviews.each do |book| %>
+<ul>
+<%= book["title"] %>
+<%= book["author"]%>
+<%= book["review_snippet"] %>
 </ul>
+<% end %>
+<br></br>
+<br></br>
+
+<ul><%= @feed.channel.title %></ul>
+<% @feed.items.each do |item| %>
+<ul><%= item.title %></ul>
+<% end %>
+
+
+
 <footer><a href="https://twitter.com/share" class="twitter-share-button" data-text="Join our book club" data-size="large" data-count="none">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></footer>

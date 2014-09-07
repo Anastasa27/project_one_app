@@ -1,8 +1,11 @@
 require 'sinatra/base'
-require 'twitter'
 require 'httparty'
+require 'open-uri'
+require 'twitter'
 require 'json'
 require 'pry'
+require 'rss'
+
 
 
 class App < Sinatra::Base
@@ -37,7 +40,8 @@ TWITTER_ACCESS_TOKEN = '2790859370-RiHbePsaHNIjdmSV4vWfUMUvCro1mJA4xhbDxyy'
 TWITTER_ACCESS_SECRET_TOKEN = 'vMNh7eTX5Qy99DWXDMs5Vc2HpXPcX64EkpqLex8RdX5Xe'
 NY_TIMES_API_KEY = 'a334d90853f03ea079bda17f9f0fc548:17:69767462'
 IDREAMBOOKS_API_KEY = '31b59ece20986033f5307f7907f7d94e87b4a45f'
-_SECRET_KEY = ''
+
+
 
   ########################
   # Routes
@@ -53,6 +57,9 @@ end
     render(:erb, :index)
   end
 
+  get('/profile/new') do
+    render(:erb, :profile_info_form)
+  end
 
   get('/dashboard') do
     #weather
@@ -65,13 +72,30 @@ end
       @parsed_version = JSON.parse(@ny_times_response)
       #twitter
       @tweets = []
-      TWITTER_CLIENT.search("books", :result_type => "recent").take(10).each_with_index do |tweet|
+      TWITTER_CLIENT.search("twitterbooks", :result_type => "recent").take(20).each_with_index do |tweet|
        @tweets.push(tweet.text)
       end
-      #good reads
-      @book_reviews = HTTParty.get("http://idreambooks.com/api/books/reviews.json?q=shakespeare&key=31b59ece20986033f5307f7907f7d94e87b4a45f").to_json
+      #idreambooks
+      @book_reviews = HTTParty.get("http://idreambooks.com/api/publications/recent_recos.json?key=31b59ece20986033f5307f7907f7d94e87b4a45f&slug=fiction").to_json
       @parsed_reviews = JSON.parse(@book_reviews)
+     #bookbrowse news rss
+     url = 'https://www.bookbrowse.com/rss/book_news.rss'
+      open(url) do |rss|
+      @feed = RSS::Parser.parse(rss)
+    end
   render(:erb, :dashboard)
 end
+
+
+  post('/profile/new') do
+
+    new_profile = {
+      :user_name  => params[:user_name],
+      :email => params[:email]
+    }
+    @@profile.push(new_profile)
+     logger.info @@profile
+    redirect to('/profile/new')
+  end
 
 end
