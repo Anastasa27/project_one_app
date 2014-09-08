@@ -1,23 +1,23 @@
 
 <p>The current temperature is <%= @temp_in_farh %> degrees.</p>
 
-
-<h2>New York Times Bestsellers</h2>
-<% @parsed_version["results"].each do |book| %>
-<% book["book_details"].each do |info| %>
-<ul>
-<%= info["title"] %>
-<br></br>
-<%= info["author"] %>
-<br></br>
-<%= info["description"] %>
-<br></br>
-<%= info["publisher"] %>
-</ul>
+<% if @user1["ny_times"] %>
+  <h2>New York Times Bestsellers</h2>
+  <% @parsed_version["results"].each do |book| %>
+    <% book["book_details"].each do |info| %>
+    <ul>
+    <%= info["title"] %>
+    <br></br>
+    <%= info["author"] %>
+    <br></br>
+    <%= info["description"] %>
+    <br></br>
+    <%= info["publisher"] %>
+    </ul>
+    <% end %>
+  <% end %>
 <% end %>
-<% end %>
-<br></br>
-<a href="/ny_times">New York Times Bestsellers</a>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/ny_times">New York Times Bestsellers</a>
 <br></br>
 <br></br>
 
@@ -25,8 +25,7 @@
 <% @tweets.each do |tweet| %>
 <ul><%= tweet %></ul>
 <% end %>
-<br></br>
-<a href="/twitter_books">TwitterBooks</a>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/twitter_books">TwitterBooks</a>
 <br></br>
 <br></br>
 
@@ -38,8 +37,7 @@
 <%= book["review_snippet"] %>
 </ul>
 <% end %>
-<br></br>
-<a href="/idream_books">iDreamBooks Reviews</a>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/idream_books">iDreamBooks Reviews</a>
 <br></br>
 
 <h2>BookBrowse News</h2>
@@ -47,5 +45,4 @@
 <% @feed.items.each do |item| %>
 <ul><%= item.title %></ul>
 <% end %>
-<br></br>
-<a href="/book_browse_news">BookBrowse News</a>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/book_browse_news">BookBrowse News</a>

@@ -9,8 +9,6 @@ require 'uri'
 require 'pry'
 require 'rss'
 
-
-
 class App < Sinatra::Base
 
   ########################
@@ -47,6 +45,14 @@ TWITTER_ACCESS_TOKEN = '2790859370-RiHbePsaHNIjdmSV4vWfUMUvCro1mJA4xhbDxyy'
 TWITTER_ACCESS_SECRET_TOKEN = 'vMNh7eTX5Qy99DWXDMs5Vc2HpXPcX64EkpqLex8RdX5Xe'
 NY_TIMES_API_KEY = 'a334d90853f03ea079bda17f9f0fc548:17:69767462'
 IDREAMBOOKS_API_KEY = '31b59ece20986033f5307f7907f7d94e87b4a45f'
+  #######################
+  #GIT HUB OAUTH API KEYS
+  #######################
+  CLIENT_ID = "b8028cf37f30ca6dfb83"
+  CLIENT_SECRET = "3a220ae5024aade3020ac3ec03646e342d0e73d4"
+  CALLBACK_URL = "http://127.0.0.1:9292/oauth_callback"
+  #######################
+
   ########################
   # Twitter
   ########################
@@ -60,15 +66,45 @@ end
   #Routes
   #######################
 
-
   get('/') do
+    base_url = "https://github.com/login/oauth/authorize"
+    scope = "user"
+    state = SecureRandom.urlsafe_base64
+    session[:state] = state
+    @url = "#{base_url}?client_id=#{CLIENT_ID}&scope=#{scope}&redirect_uri=#{CALLBACK_URL}&state=#{state}"
     render(:erb, :index)
   end
 
-  get('/profile/new') do
-    render(:erb, :profile_info_form)
+  get('/oauth_callback') do
+    code = params[:code]
+    if session[:state] == params[:state]
+        response = HTTParty.post(
+          "https://github.com/login/oauth/access_token",
+          :body => {
+            client_id: CLIENT_ID,
+            client_secret: CLIENT_SECRET,
+            code: code,
+            redirect_uri: CALLBACK_URL,
+          },
+          :headers => {
+            "Accept" => "application/json"
+          })
+        session[:access_token] = response["access_token"]
+    end
+    redirect('/')
   end
 
+
+  get('/logout') do
+    session[:access_token] = nil
+    redirect to('/')
+  end
+
+
+  get('/profile/new') do
+     @user1 = JSON.parse($redis["user1"])
+    render(:erb, :profile_info_form)
+  end
 
   get('/profile') do
     render(:erb, :profile)
@@ -90,18 +126,6 @@ end
     render(:erb, :book_browse_news)
   end
 
-
-  # post('/profile/new') do
-
-  #   # new_user = {
-  #   #   :"user_name" =>  params["name"],
-  #   #   :"email"     =>  params["email"],
-  #   # }
-  #   # add_user_profile_info(new_user)
-  #   redirect to('/dashboard')
-  # end
-
-
   get('/dashboard') do
     #weather
       @city = "new_york"
@@ -109,9 +133,12 @@ end
       @weather = HTTParty.get("http://api.wunderground.com/api/8df98bbf67d1296c/conditions/q/#{@state}/#{@city}.json")
       @temp_in_farh = @weather["current_observation"]["temp_f"]
       #new york times bestsellers
+      @user1 = JSON.parse($redis["user1"])
       @ny_times_response = HTTParty.get("http://api.nytimes.com/svc/books/v2/lists.json?list=hardcover-fiction&api-key=a334d90853f03ea079bda17f9f0fc548:17:69767462").to_json
       @parsed_version = JSON.parse(@ny_times_response)
       #twitter
+      twitter = []
+
       @tweets = []
       TWITTER_CLIENT.search("twitterbooks", :result_type => "recent").take(20).each_with_index do |tweet|
        @tweets.push(tweet.text)
@@ -128,10 +155,8 @@ end
     render(:erb, :dashboard)
   end # ends get /dashboard
 
-
-
   get('/feeds') do
-    @selection_of_feeds = ["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"]
+    @selection_of_feeds = ["ny_times", "twitter_books", "idream_books", "book_browse_news"]
      # @user_feeds = []
     #  if @user_feeds.include?("")
     #  @user_feeds.each do |feed|
@@ -139,11 +164,20 @@ end
     render(:erb, :profile_info_form)
   end
 
-
   post('/feeds') do
-    $redis.set(params["true"].to_json)
+    user_hash = {
+      :user_name => params[:user_name],
+      :email => params[:email],
+      :image_url => params[:image_url],
+      :ny_times => params[:ny_times],
+      :twitter_books => params[:twitter_books],
+      :idreambooks => params[:idream_books],
+      :book_browse_news => params[:book_browse_news],
+    }
+
+    $redis.set("user1", user_hash.to_json)
     $redis.keys.each do |key, value|
-      puts key if value == "true"
+    #   puts key if value == "true"
     end
     binding.pry
     redirect('/dashboard')
@@ -157,3 +191,4 @@ end
   # end
 
 end
+
