@@ -154,12 +154,7 @@ end
   end # ends get /dashboard
 
   get('/feeds') do
-    # @selection_of_feeds = ["ny_times", "twitter_books", "idream_books", "book_browse_news"]
-     # @user_feeds = []
-    #  if @user_feeds.include?("")
-    #  @user_feeds.each do |feed|
-
-    render(:erb, :profile_info_form)
+    render(:erb, :dashboard)
   end
 
   post('/feeds') do
@@ -172,21 +167,13 @@ end
       :idreambooks => params[:idream_books],
       :book_browse_news => params[:book_browse_news],
     }
-
     $redis.set("user1", user_hash.to_json)
     $redis.keys.each do |key, value|
-    #   puts key if value == "true"
     end
     binding.pry
     redirect('/dashboard')
   end
 
-  # def add_user_profile_info(new_user)
-  #   new_user = $redis.keys("*new_user*")
-  #   key = new_user + 1
-  #   $redis.set(key, new_user.to_json)
-  #   redirect to("/profile/new")
-  # end
 
 end
 
