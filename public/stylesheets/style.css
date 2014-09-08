@@ -1,0 +1,28 @@
+html {
+  background: url(http://i.imgur.com/AxyMvpe.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+
+git
+html {
+text-align: center;
+font-family: 'Alegreya Sans SC', sans-serif;
+font-size: 25px;
+}
+
+h1{
+  font-family: 'Alegreya SC', serif;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+p1 {
+  font-weight: bold;
+  font-size: 28px;
+}
+

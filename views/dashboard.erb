@@ -17,12 +17,16 @@
 <% end %>
 <% end %>
 <br></br>
+<a href="/ny_times">New York Times Bestsellers</a>
+<br></br>
 <br></br>
 
 <h2>TwitterBooks</h2>
 <% @tweets.each do |tweet| %>
 <ul><%= tweet %></ul>
 <% end %>
+<br></br>
+<a href="/twitter_books">TwitterBooks</a>
 <br></br>
 <br></br>
 
@@ -35,10 +39,13 @@
 </ul>
 <% end %>
 <br></br>
+<a href="/idream_books">iDreamBooks Reviews</a>
+<br></br>
 
 <h2>BookBrowse News</h2>
 <ul><%= @feed.channel.title %></ul>
 <% @feed.items.each do |item| %>
 <ul><%= item.title %></ul>
 <% end %>
-
+<br></br>
+<a href="/book_browse_news">BookBrowse News</a>

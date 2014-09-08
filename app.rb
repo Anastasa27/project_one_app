@@ -74,6 +74,22 @@ end
     render(:erb, :profile)
   end
 
+  get('/twitter_books') do
+    render(:erb, :twitter_books)
+  end
+
+  get('/idream_books') do
+    render(:erb, :idream_books)
+  end
+
+  get('/ny_times') do
+    render(:erb, :ny_times)
+  end
+
+  get('/book_browse_news') do
+    render(:erb, :book_browse_news)
+  end
+
 
   # post('/profile/new') do
 
@@ -108,26 +124,28 @@ end
       open(url) do |rss|
       @feed = RSS::Parser.parse(rss)
       end
-      binding.pry
+      # binding.pry
     render(:erb, :dashboard)
   end # ends get /dashboard
 
 
 
-  # get('/feeds') do
-  #   # @selection_of_feeds = ["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"]
-  #    @user_feeds = []
-  #    if @user_feeds.include?("")
-  #    @user_feeds.each do |feed|
-  #   end
-  #   render(:erb, :profile_info_form)
-  # end
+  get('/feeds') do
+    @selection_of_feeds = ["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"]
+     # @user_feeds = []
+    #  if @user_feeds.include?("")
+    #  @user_feeds.each do |feed|
+
+    render(:erb, :profile_info_form)
+  end
 
 
-  post('/profile/new') do
-    number = $redis.keys.size
-    number += 1
-    $redis.set("feed#{number}", params["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"].to_json)
+  post('/feeds') do
+    $redis.set(params["true"].to_json)
+    $redis.keys.each do |key, value|
+      puts key if value == "true"
+    end
+    binding.pry
     redirect('/dashboard')
   end
 
