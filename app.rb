@@ -164,13 +164,13 @@ end
       :image_url => params[:image_url],
       :ny_times => params[:ny_times],
       :twitter_books => params[:twitter_books],
-      :idreambooks => params[:idream_books],
+      :idream_books => params[:idream_books],
       :book_browse_news => params[:book_browse_news],
     }
     $redis.set("user1", user_hash.to_json)
     $redis.keys.each do |key, value|
     end
-    binding.pry
+    # binding.pry
     redirect('/dashboard')
   end
 
