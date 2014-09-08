@@ -1,5 +1,7 @@
 
 <p>The current temperature is <%= @temp_in_farh %> degrees.</p>
+
+
 <h2>New York Times Bestsellers</h2>
 <% @parsed_version["results"].each do |book| %>
 <% book["book_details"].each do |info| %>
@@ -16,12 +18,14 @@
 <% end %>
 <br></br>
 <br></br>
+
 <h2>TwitterBooks</h2>
 <% @tweets.each do |tweet| %>
 <ul><%= tweet %></ul>
 <% end %>
 <br></br>
 <br></br>
+
 <h2>iDreamBooks Reviews</h2>
 <% @parsed_reviews.each do |book| %>
 <ul>
@@ -31,6 +35,7 @@
 </ul>
 <% end %>
 <br></br>
+
 <h2>BookBrowse News</h2>
 <ul><%= @feed.channel.title %></ul>
 <% @feed.items.each do |item| %>

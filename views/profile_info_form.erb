@@ -1,7 +1,8 @@
 <section>
   <h1>Update Your Profile</h1>
-    <form>
-      <form method="POST" action="/profile/new">
+
+      <form method="GET" action="/dashboard">
+
       <label for="user_name">Full Name:</label>
       <input type="text" name="user_name" id="user_name" /> &nbsp;
 
@@ -12,24 +13,24 @@
       <input type="text" name="image_url" id="image_url" />
       <br></br>
 
+
       <label for"ny_times">New York Times Best Sellers List</label>
       <input type="checkbox" name="ny_times" value="true" id="ny_times" checked />
       <br></br>
 
-      <label for"twitter">TwitterBooks</label>
+      <label for"twitter_books">TwitterBooks</label>
 
-      <input type="checkbox" name="twitter" value="true" id="twitter_yes" checked />
+      <input type="checkbox" name="twitter_books" value="true" id="twitter_books" />
       <br></br>
 
       <label for"idream_books">iDreamBooks Reviews</label>
-      <input type="checkbox" name="idream_books" value="true" id="idream_books_yes" checked />
+      <input type="checkbox" name="idream_books" value="true" id="idream_books" />
       <br></br>
 
       <label for"book_browse_news">BookBrowse News</label>
-      <input type="checkbox" name="book_browse_news" value="true" id="book_browse_news"  />
+      <input type="checkbox" name="book_browse_news" value="true" id="book_browse_news" checked />
       <br></br>
 
       <input type="submit" value="Edit" />
-
     </form>
 </section>
