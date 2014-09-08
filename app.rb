@@ -22,12 +22,10 @@ class App < Sinatra::Base
     enable :method_override
     enable :sessions
     set :session_secret, 'super secret'
-    uri = URI.parse(ENV["REDISTOGO"])
+    uri = URI.parse(ENV["REDISTOGO_URL"])
     $redis = Redis.new({:host => uri.host,
                         :port => uri.port,
                         :password => uri.password})
-
-
   end
 
   before do
@@ -62,16 +60,6 @@ end
   #Routes
   #######################
 
-#     }]
- # get('/') do
- #    @cheeses = []
- #    $redis.keys('*cheese*').each do |key|
- #      @cheeses << get_model_from_redis(key)
- #    end
- #    render(:erb, :"cheeses/index")
- #  end
-
-
 
   get('/') do
     render(:erb, :index)
@@ -81,28 +69,22 @@ end
     render(:erb, :profile_info_form)
   end
 
-  get("/profile/:id") do
-    @user_profile = @@user_profile
-    @id = params[:id].to_i
-    index = @id - 1
-    @selected_profile = @name[index]
-    render(:erb, :profile)
-  end
 
   get('/profile') do
     render(:erb, :profile)
   end
 
 
-  post('/profile/new') do
+  # post('/profile/new') do
 
-    # new_user = {
-    #   :"user_name" =>  params["name"],
-    #   :"email"     =>  params["email"],
-    # }
-    # add_user_profile_info(new_user)
-    redirect to('/dashboard')
-  end
+  #   # new_user = {
+  #   #   :"user_name" =>  params["name"],
+  #   #   :"email"     =>  params["email"],
+  #   # }
+  #   # add_user_profile_info(new_user)
+  #   redirect to('/dashboard')
+  # end
+
 
   get('/dashboard') do
     #weather
@@ -126,26 +108,27 @@ end
       open(url) do |rss|
       @feed = RSS::Parser.parse(rss)
       end
+      binding.pry
     render(:erb, :dashboard)
-  end
+  end # ends get /dashboard
 
 
 
-  get('/feeds') do
-    # @selection_of_feeds = ["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"]
-     @user_feeds = []
-     if @user_feeds.include?("")
-     @user_feeds.each do |feed|
-    end
-    render(:erb, :profile_info_form)
-  end
+  # get('/feeds') do
+  #   # @selection_of_feeds = ["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"]
+  #    @user_feeds = []
+  #    if @user_feeds.include?("")
+  #    @user_feeds.each do |feed|
+  #   end
+  #   render(:erb, :profile_info_form)
+  # end
 
-  post('/profile/new')
-  number = $redis.keys.size
-  number += 1
-  $redis.set("feed#{number}", params["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"].to_json)
-  binding.pry
-  redirect('/dashboard')
+
+  post('/profile/new') do
+    number = $redis.keys.size
+    number += 1
+    $redis.set("feed#{number}", params["ny_times", "twitter_books", "idream_books_yes", "book_browse_news"].to_json)
+    redirect('/dashboard')
   end
 
   # def add_user_profile_info(new_user)
@@ -153,12 +136,6 @@ end
   #   key = new_user + 1
   #   $redis.set(key, new_user.to_json)
   #   redirect to("/profile/new")
-  # end
-
-
-  # delete('/profile/:id') do
-  #  @@user_profile.delete_at(params[:id].to_i)
-  #  redirect to('/profile/new')
   # end
 
 end
