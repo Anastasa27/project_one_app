@@ -137,8 +137,6 @@ end
       @ny_times_response = HTTParty.get("http://api.nytimes.com/svc/books/v2/lists.json?list=hardcover-fiction&api-key=a334d90853f03ea079bda17f9f0fc548:17:69767462").to_json
       @parsed_version = JSON.parse(@ny_times_response)
       #twitter
-      twitter = []
-
       @tweets = []
       TWITTER_CLIENT.search("twitterbooks", :result_type => "recent").take(20).each_with_index do |tweet|
        @tweets.push(tweet.text)
@@ -156,7 +154,7 @@ end
   end # ends get /dashboard
 
   get('/feeds') do
-    @selection_of_feeds = ["ny_times", "twitter_books", "idream_books", "book_browse_news"]
+    # @selection_of_feeds = ["ny_times", "twitter_books", "idream_books", "book_browse_news"]
      # @user_feeds = []
     #  if @user_feeds.include?("")
     #  @user_feeds.each do |feed|

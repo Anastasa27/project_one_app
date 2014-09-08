@@ -21,28 +21,34 @@
 <br></br>
 <br></br>
 
-<h2>TwitterBooks</h2>
-<% @tweets.each do |tweet| %>
-<ul><%= tweet %></ul>
+<% if @user1["twitter_books"] %>
+  <h2>TwitterBooks</h2>
+   <% @tweets.each do |tweet| %>
+    <ul><%= tweet %></ul>
+   <% end %>
 <% end %>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/twitter_books">TwitterBooks</a>
 <br></br>
 <br></br>
 
-<h2>iDreamBooks Reviews</h2>
-<% @parsed_reviews.each do |book| %>
-<ul>
-<%= book["title"] %>
-<%= book["author"]%>
-<%= book["review_snippet"] %>
-</ul>
+<% if @user1["idream_books"] %>
+  <h2>iDreamBooks Reviews</h2>
+  <% @parsed_reviews.each do |book| %>
+   <ul>
+    <%= book["title"] %>
+    <%= book["author"]%>
+    <%= book["review_snippet"] %>
+   </ul>
+  <% end %>
 <% end %>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/idream_books">iDreamBooks Reviews</a>
 <br></br>
 
-<h2>BookBrowse News</h2>
-<ul><%= @feed.channel.title %></ul>
-<% @feed.items.each do |item| %>
-<ul><%= item.title %></ul>
+<% if @user1["book_browse_news"] %>
+  <h2>BookBrowse News</h2>
+    <ul><%= @feed.channel.title %></ul>
+      <% @feed.items.each do |item| %>
+    <ul><%= item.title %></ul>
+   <% end %>
 <% end %>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/book_browse_news">BookBrowse News</a>
