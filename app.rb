@@ -170,7 +170,7 @@ end
     $redis.set("user1", user_hash.to_json)
     $redis.keys.each do |key, value|
     end
-    # binding.pry
+    binding.pry
     redirect('/dashboard')
   end
 
