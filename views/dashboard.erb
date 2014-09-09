@@ -21,17 +21,18 @@
 <!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/ny_times">New York Times Bestsellers</a> -->
 <br></br>
 <br></br>
-
+<section id="twitter_books">
 <% if @user1["twitter_books"] %>
   <h2>TwitterBooks</h2>
    <% @tweets.each do |tweet| %>
     <ul><%= tweet %></ul>
    <% end %>
 <% end %>
+</section>
 <!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/twitter_books">TwitterBooks</a> -->
 <br></br>
 <br></br>
-
+<section id="idream_books">
 <% if @user1["idream_books"] %>
   <h2>iDreamBooks Reviews</h2>
   <% @parsed_reviews.each do |book| %>
@@ -42,9 +43,10 @@
    </ul>
   <% end %>
 <% end %>
+</section>
 <!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/idream_books">iDreamBooks Reviews</a> -->
 <br></br>
-
+<section id="book_browse_news">
 <% if @user1["book_browse_news"] %>
   <h2>BookBrowse News</h2>
     <ul><%= @feed.channel.title %></ul>
@@ -52,5 +54,6 @@
     <ul><%= item.title %></ul>
    <% end %>
 <% end %>
+</section>
 <!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/book_browse_news">BookBrowse News</a>
  -->

@@ -111,13 +111,6 @@ end
     render(:erb, :profile, :template => :layout)
   end
 
-  get('/profile/:id') do
-    @user_profiles = @@user_profiles
-    @index = params[:id].to_i - 1
-
-    render(:erb, :profile, :template => :layout)
-  end
-
   get('/twitter_books') do
     render(:erb, :twitter_books, :template => :layout)
   end
@@ -180,8 +173,16 @@ end
     $redis.set("user1", user_hash.to_json)
     $redis.keys.each do |key, value|
     end
-    # binding.pry
+    binding.pry
     redirect('/dashboard')
+  end
+
+
+  get('/profile/:id') do
+    @user_profiles = @@user_profiles
+    @index = params[:id].to_i - 1
+
+    render(:erb, :profile, :template => :layout)
   end
 
 
