@@ -1,16 +1,17 @@
 /* unvisited link */
 a:link {
     text-decoration: none;
-    color: rgb(255,255,255)
+    color: rgb(0,0,0);
 }
 
+a:visited {
+    color: rgb(0,0,0);
+}
 
 header {
-
- /*
-   border-radius: 20px;
-  color: white; */
-
+  font-weight: bold;
+  text-align: left;
+  font-family: 'Special Elite', cursive;
 }
 
 body {
@@ -26,12 +27,12 @@ body {
 
 body {
 text-align: center;
-font-family: 'Playfair Display', serif;
+font-family: 'Francois One', sans-serif;
 font-size: 25px;
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Special Elite', cursive;
   font-weight: bold;
   font-size: 32px;
 }
@@ -84,3 +85,11 @@ p {
   font-size: 25px;
 }
 
+#weather a:link {
+  color: rgba(0,0,0,.5);
+}
+
+#login a:link{
+  color: rgb(0,0,0);
+  font-weight: bold;
+}

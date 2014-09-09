@@ -1,6 +1,7 @@
-
+<section id="login">
  <% if session[:access_token] %>
-  <a href="/logout">Logout</a>
+  <a href="/logout">logout.</a>
 <% else %>
-  <a href="<%= @url %>">Login with Github</a>
+  <a href="<%= @url %>">login with github.</a>
 <% end %>
+</section>
