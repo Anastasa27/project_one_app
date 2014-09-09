@@ -23,7 +23,8 @@ class App < Sinatra::Base
     uri = URI.parse(ENV["REDISTOGO_URL"])
     $redis = Redis.new({:host => uri.host,
                         :port => uri.port,
-                        :password => uri.password})
+                       :password => uri.password})
+    @@user_profiles = []
   end
 
   before do
@@ -80,15 +81,15 @@ end
     if session[:state] == params[:state]
         response = HTTParty.post(
           "https://github.com/login/oauth/access_token",
-          :body => {
-            client_id: CLIENT_ID,
-            client_secret: CLIENT_SECRET,
-            code: code,
-            redirect_uri: CALLBACK_URL,
-          },
-          :headers => {
-            "Accept" => "application/json"
-          })
+            :body => {
+              client_id: CLIENT_ID,
+              client_secret: CLIENT_SECRET,
+              code: code,
+              redirect_uri: CALLBACK_URL,
+              },
+            :headers => {
+             "Accept" => "application/json"
+              })
         session[:access_token] = response["access_token"]
     end
     redirect('/')
@@ -103,27 +104,34 @@ end
 
   get('/profile/new') do
      @user1 = JSON.parse($redis["user1"])
-    render(:erb, :profile_info_form)
+    render(:erb, :profile_info_form, :template => :layout)
   end
 
   get('/profile') do
-    render(:erb, :profile)
+    render(:erb, :profile, :template => :layout)
+  end
+
+  get('/profile/:id') do
+    @user_profiles = @@user_profiles
+    @index = params[:id].to_i - 1
+
+    render(:erb, :profile, :template => :layout)
   end
 
   get('/twitter_books') do
-    render(:erb, :twitter_books)
+    render(:erb, :twitter_books, :template => :layout)
   end
 
   get('/idream_books') do
-    render(:erb, :idream_books)
+    render(:erb, :idream_books, :template => :layout)
   end
 
   get('/ny_times') do
-    render(:erb, :ny_times)
+    render(:erb, :ny_times, :template => :layout)
   end
 
   get('/book_browse_news') do
-    render(:erb, :book_browse_news)
+    render(:erb, :book_browse_news, :template => :layout)
   end
 
   get('/dashboard') do
@@ -154,7 +162,7 @@ end
   end # ends get /dashboard
 
   get('/feeds') do
-    render(:erb, :dashboard)
+    render(:erb, :dashboard, :template => :layout)
   end
 
   post('/feeds') do
@@ -167,10 +175,12 @@ end
       :idream_books => params[:idream_books],
       :book_browse_news => params[:book_browse_news],
     }
+
+    @@user_profiles.push(user_hash)
     $redis.set("user1", user_hash.to_json)
     $redis.keys.each do |key, value|
     end
-    binding.pry
+    # binding.pry
     redirect('/dashboard')
   end
 

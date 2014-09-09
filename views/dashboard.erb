@@ -1,6 +1,6 @@
 
 <p>The current temperature is <%= @temp_in_farh %> degrees.</p>
-
+<section id="ny_times">
 <% if @user1["ny_times"] %>
   <h2>New York Times Bestsellers</h2>
   <% @parsed_version["results"].each do |book| %>
@@ -17,6 +17,7 @@
     <% end %>
   <% end %>
 <% end %>
+</section>
 <!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/ny_times">New York Times Bestsellers</a> -->
 <br></br>
 <br></br>

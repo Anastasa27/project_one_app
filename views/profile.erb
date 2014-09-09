@@ -1,14 +1,15 @@
-<p>The current temperature is <%= @temp_in_farh %> degrees.</p>
-<br></br>
-<br></br>
-<section>
-  <br></br>
-<h1>Profiles</h1>
-<% @id %>
-  <br></br>
-  <ul>
-    <li>Name: <%= @selected_profile[:name] %></li>
-    <li>Email: <%= @selected_profile[:email] %></li>
-  </ul>
-</section>
+<h2><%= @user_profiles[@index][:user_name] %></h2>
+  <img src="<%= @user_profile[@index][:image_url] %>">
+<ul>
+  <li>
+    <p>
 
+        email: <%= @user_profiles[@index][:email] %>
+        <br></br>
+        New York Times Bestsellers? <%= @user_profiles[@index][:ny_times] %>
+        <br></br>
+        TwitterBooks? <%= @user_profiles[@index][:twitter_books] %>
+        <br></br>
+        iDreamBooks Reviews? <%= @user_profiles[@index][:idream_books] %>
+        <br></br>
+        BookBrowse News? <%= @user_profiles[@index][:books_browse_news] %>

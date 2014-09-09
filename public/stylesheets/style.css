@@ -1,4 +1,4 @@
-html {
+body {
   background: url(http://i.imgur.com/AxyMvpe.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -8,21 +8,26 @@ html {
 
 
 
-git
-html {
+
+body {
 text-align: center;
-font-family: 'Alegreya Sans SC', sans-serif;
+font-family: 'Playfair Display', serif;
 font-size: 25px;
 }
 
-h1{
-  font-family: 'Alegreya SC', serif;
+h1 {
+  font-family: 'Playfair Display', serif;
   font-weight: bold;
   font-size: 32px;
 }
 
-p1 {
+p {
   font-weight: bold;
   font-size: 28px;
+}
+
+#ny_times {
+  background: rgba(184,184,184,.8);
+  border-radius: 20px;
 }
 
