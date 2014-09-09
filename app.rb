@@ -170,12 +170,17 @@ end
     }
 
     @@user_profiles.push(user_hash)
+    @@user_profiles.each_with_index do |user_profile, index|
     $redis.set("user1", user_hash.to_json)
     $redis.keys.each do |key, value|
     end
-    binding.pry
+    # binding.pry
     redirect('/dashboard')
   end
+
+get('/profile/edit')
+  redirect to('/profile/new')
+end
 
 
   get('/profile/:id') do

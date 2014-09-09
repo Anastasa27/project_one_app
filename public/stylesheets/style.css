@@ -1,3 +1,18 @@
+/* unvisited link */
+a:link {
+    text-decoration: none;
+    color: rgb(255,255,255)
+}
+
+
+header {
+
+ /*
+   border-radius: 20px;
+  color: white; */
+
+}
+
 body {
   background: url(http://i.imgur.com/AxyMvpe.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -47,5 +62,25 @@ p {
 #book_browse_news {
   background: rgba(184,184,184,.8);
   border-radius: 20px;
+}
+
+
+#profile_info_form {
+  background: rgba(184,184,184,.8);
+  border-radius: 20px;
+}
+
+
+#profile_display {
+  background: rgba(184,184,184,.8);
+  border-radius: 20px;
+}
+
+
+#weather {
+  text-align: left;
+  color: rgba(0,0,0,.5);
+  font-weight: bold;
+  font-size: 25px;
 }
 

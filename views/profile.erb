@@ -1,9 +1,9 @@
+<section id="profile_display"
 <h2><%= @user_profiles[@index][:user_name] %></h2>
   <img src="<%= @user_profile[@index][:image_url] %>">
 <ul>
   <li>
     <p>
-
         email: <%= @user_profiles[@index][:email] %>
         <br></br>
         New York Times Bestsellers? <%= @user_profiles[@index][:ny_times] %>
@@ -13,3 +13,6 @@
         iDreamBooks Reviews? <%= @user_profiles[@index][:idream_books] %>
         <br></br>
         BookBrowse News? <%= @user_profiles[@index][:books_browse_news] %>
+</section>
+
+<button><a href="profile/edit"> edit your profile.</a></button>
