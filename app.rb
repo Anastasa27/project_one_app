@@ -50,7 +50,7 @@ class App < Sinatra::Base
   #######################
   CLIENT_ID = "b8028cf37f30ca6dfb83"
   CLIENT_SECRET = "3a220ae5024aade3020ac3ec03646e342d0e73d4"
-  CALLBACK_URL = "http://127.0.0.1:9292/oauth_callback"
+  CALLBACK_URL = ENV['PROJECT_ONE_REDIRECT_URI']
   #######################
 
   ########################
