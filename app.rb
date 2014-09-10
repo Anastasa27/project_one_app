@@ -115,7 +115,7 @@ class App < Sinatra::Base
     TWITTER_CLIENT.search("twitterbooks", :result_type => "recent").take(20).each_with_index do |tweet|
       @tweets.push(tweet.text)
     end
-    render(:erb, :twitter_books, :template => :layout)
+      render(:erb, :twitter_books, :template => :layout)
   end
 
   get('/idream_books') do
@@ -138,7 +138,7 @@ class App < Sinatra::Base
       open(url) do |rss|
         @feed = RSS::Parser.parse(rss)
     end
-    render(:erb, :book_browse_news, :template => :layout)
+      render(:erb, :book_browse_news, :template => :layout)
   end
 
   get('/dashboard') do
@@ -164,7 +164,7 @@ class App < Sinatra::Base
     open(url) do |rss|
       @feed = RSS::Parser.parse(rss)
     end
-    render(:erb, :dashboard)
+      render(:erb, :dashboard)
   end # ends get /dashboard
 
   get('/feeds') do
@@ -185,8 +185,8 @@ class App < Sinatra::Base
 
     session[:user_id_num] = $redis.get("user_counter")
       $redis.set("user:#{$redis.get("user_counter")}", user_hash.to_json)
-       $redis.incr("user_counter")
-     redirect('/dashboard')
+        $redis.incr("user_counter")
+      redirect('/dashboard')
     end
 
   post('/profile/edit') do
@@ -196,7 +196,7 @@ class App < Sinatra::Base
 
   get('/profile/:id') do
     @user_profiles = get_user(params[:id])
-    render(:erb, :profile, :template => :layout)
+      render(:erb, :profile, :template => :layout)
   end
 
   def get_user(user_id)
