@@ -1,0 +1,10 @@
+
+<section id="book_browse_news">
+<% if @user1["book_browse_news"] %>
+  <a href="https://www.bookbrowse.com/news/index.cfm/start_id/9>"><h2>BookBrowse News</h2>
+    <ul><%= @feed.channel.title %></ul>
+      <% @feed.items.each do |item| %>
+    <ul><%= item.title %></ul>
+   <% end %>
+<% end %>
+</section>

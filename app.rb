@@ -6,7 +6,6 @@ require 'twitter'
 require 'redis'
 require 'json'
 require 'uri'
-require 'pry'
 require 'rss'
 
 class App < Sinatra::Base
@@ -111,44 +110,60 @@ class App < Sinatra::Base
   end
 
   get('/twitter_books') do
+    @user1 = get_user(session[:user_id_num])
+    @tweets = []
+    TWITTER_CLIENT.search("twitterbooks", :result_type => "recent").take(20).each_with_index do |tweet|
+      @tweets.push(tweet.text)
+    end
     render(:erb, :twitter_books, :template => :layout)
   end
 
   get('/idream_books') do
+    @user1 = get_user(session[:user_id_num])
+    @book_reviews = HTTParty.get("http://idreambooks.com/api/publications/recent_recos.json?key=31b59ece20986033f5307f7907f7d94e87b4a45f&slug=fiction").to_json
+    @parsed_reviews = JSON.parse(@book_reviews)
     render(:erb, :idream_books, :template => :layout)
   end
 
   get('/ny_times') do
+     @user1 = get_user(session[:user_id_num])
+     @ny_times_response = HTTParty.get("http://api.nytimes.com/svc/books/v2/lists.json?list=hardcover-fiction&api-key=a334d90853f03ea079bda17f9f0fc548:17:69767462").to_json
+    @parsed_version = JSON.parse(@ny_times_response)
     render(:erb, :ny_times, :template => :layout)
   end
 
   get('/book_browse_news') do
+    @user1 = get_user(session[:user_id_num])
+    url = 'https://www.bookbrowse.com/rss/book_news.rss'
+      open(url) do |rss|
+        @feed = RSS::Parser.parse(rss)
+    end
     render(:erb, :book_browse_news, :template => :layout)
   end
 
   get('/dashboard') do
     #weather
-      @city = "new_york"
-      @state = "ny"
-      @weather = HTTParty.get("http://api.wunderground.com/api/8df98bbf67d1296c/conditions/q/#{@state}/#{@city}.json")
-      @temp_in_farh = @weather["current_observation"]["temp_f"]
-      #new york times bestsellers
-      @user1 = get_user(session[:user_id_num])
-      @ny_times_response = HTTParty.get("http://api.nytimes.com/svc/books/v2/lists.json?list=hardcover-fiction&api-key=a334d90853f03ea079bda17f9f0fc548:17:69767462").to_json
-      @parsed_version = JSON.parse(@ny_times_response)
-      #twitter
-       @tweets = []
-      TWITTER_CLIENT.search("twitterbooks", :result_type => "recent").take(20).each_with_index do |tweet|
-       @tweets.push(tweet.text)
-      end
-        #idreambooks
-        @book_reviews = HTTParty.get("http://idreambooks.com/api/publications/recent_recos.json?key=31b59ece20986033f5307f7907f7d94e87b4a45f&slug=fiction").to_json
-        @parsed_reviews = JSON.parse(@book_reviews)
-        #bookbrowse news rss
-          url = 'https://www.bookbrowse.com/rss/book_news.rss'
-          open(url) do |rss|
-          @feed = RSS::Parser.parse(rss)
-        end
+    @city = "new_york"
+    @state = "ny"
+    @weather = HTTParty.get("http://api.wunderground.com/api/8df98bbf67d1296c/conditions/q/#{@state}/#{@city}.json")
+    @temp_in_farh = @weather["current_observation"]["temp_f"]
+    #new york times bestsellers
+    @user1 = get_user(session[:user_id_num])
+    @ny_times_response = HTTParty.get("http://api.nytimes.com/svc/books/v2/lists.json?list=hardcover-fiction&api-key=a334d90853f03ea079bda17f9f0fc548:17:69767462").to_json
+    @parsed_version = JSON.parse(@ny_times_response)
+    #twitter
+    @tweets = []
+    TWITTER_CLIENT.search("twitterbooks", :result_type => "recent").take(20).each_with_index do |tweet|
+      @tweets.push(tweet.text)
+    end
+    #idreambooks
+    @book_reviews = HTTParty.get("http://idreambooks.com/api/publications/recent_recos.json?key=31b59ece20986033f5307f7907f7d94e87b4a45f&slug=fiction").to_json
+    @parsed_reviews = JSON.parse(@book_reviews)
+    #bookbrowse news rss
+    url = 'https://www.bookbrowse.com/rss/book_news.rss'
+    open(url) do |rss|
+      @feed = RSS::Parser.parse(rss)
+    end
     render(:erb, :dashboard)
   end # ends get /dashboard
 
@@ -162,7 +177,6 @@ class App < Sinatra::Base
       :user_id => $redis.get("user_counter"),
       :user_name => params[:user_name],
       :email => params[:email],
-      :image_url => params[:image_url],
       :ny_times => params[:ny_times],
       :twitter_books => params[:twitter_books],
       :idream_books => params[:idream_books],

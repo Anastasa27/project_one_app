@@ -1,5 +1,4 @@
 require 'json'
-require 'pry'
 require 'redis'
 require 'uri'
 
@@ -11,11 +10,11 @@ $redis = Redis.new({:host => uri.host,
 $redis = Redis.new
 $redis.flushdb
 
-file_contents = File.read('cheese_data.json')
+file_contents = File.read('user_data.json')
 ruby_object = JSON.parse(file_contents)
 
 
-ruby_object["cheese_data"].each_with_index do |cheese, index|
-  $redis.set("cheeses:#{index}", cheese.to_json)
+ruby_object["user1"].each_with_index do |"user1", index|
+  $redis.set("user1:#{index}", user1.to_json)
 end
 

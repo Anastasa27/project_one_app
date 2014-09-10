@@ -1,0 +1,18 @@
+<section id="ny_times">
+<% if @user1["ny_times"] %>
+  <a href="http://www.nytimes.com/best-sellers-books/hardcover-fiction/list.html"><h2>New York Times Bestsellers</h2>
+  <% @parsed_version["results"].each do |book| %>
+    <% book["book_details"].each do |info| %>
+    <ul>
+    <%= info["title"] %>
+    <br></br>
+    <%= info["author"] %>
+    <br></br>
+    <%= info["description"] %>
+    <br></br>
+    <%= info["publisher"] %>
+    </ul>
+    <% end %>
+  <% end %>
+<% end %>
+</section>

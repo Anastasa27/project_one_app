@@ -1,11 +1,1 @@
-<br></br>
-<br></br>
-<h2>iDreamBooks Reviews</h2>
-<% @parsed_reviews.each do |book| %>
-<ul>
-<%= book["title"] %>
-<%= book["author"]%>
-<%= book["review_snippet"] %>
-</ul>
-<% end %>
-<br></br>
+<%= render(:erb, :_idream_books, :locals => {:user_wants_idream_books => @user1["idream_books"]})%>

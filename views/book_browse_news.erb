@@ -1,7 +1,1 @@
-<br></br>
-<br></br>
-<h2>BookBrowse News</h2>
-<ul><%= @feed.channel.title %></ul>
-<% @feed.items.each do |item| %>
-<ul><%= item.title %></ul>
-<% end %>
+<%= render(:erb, :_book_browse_news, :locals => {:user_wants_book_browse_news => @user1["book_browse_news"]}) %>

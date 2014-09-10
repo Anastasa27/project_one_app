@@ -1,0 +1,12 @@
+<section id="idream_books">
+<% if @user1["idream_books"] %>
+  <a href="http://idreambooks.com/top-publications"><h2>iDreamBooks Reviews</h2>
+  <% @parsed_reviews.each do |book| %>
+   <ul>
+    <%= book["title"] %>
+    <%= book["author"]%>
+    <%= book["review_snippet"] %>
+   </ul>
+  <% end %>
+<% end %>
+</section>

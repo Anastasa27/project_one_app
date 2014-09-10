@@ -1,60 +1,15 @@
 
 <section id="weather"><a href="http://www.wunderground.com/cgi-bin/findweather/hdfForecast?query=new+york%2C+ny">The current temperature is <%= @temp_in_farh %> degrees.</section>
-<section id="ny_times">
-<% if @user1["ny_times"] %>
-  <a href="http://www.nytimes.com/best-sellers-books/hardcover-fiction/list.html"><h2>New York Times Bestsellers</h2>
-  <% @parsed_version["results"].each do |book| %>
-    <% book["book_details"].each do |info| %>
-    <ul>
-    <%= info["title"] %>
-    <br></br>
-    <%= info["author"] %>
-    <br></br>
-    <%= info["description"] %>
-    <br></br>
-    <%= info["publisher"] %>
-    </ul>
-    <% end %>
-  <% end %>
-<% end %>
-</section>
-<!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/ny_times">New York Times Bestsellers</a>
- -->
+
+
+<%= render(:erb, :_ny_times, :locals => {:user_wants_ny_times => @user1["ny_times"]}) %>
 <br></br>
 <br></br>
-<section id="twitter_books">
-<% if @user1["twitter_books"] %>
-  <a href="https://twitter.com/TwitterBooks"><h2>TwitterBooks</h2>
-   <% @tweets.each do |tweet| %>
-    <ul><%= tweet %></ul>
-   <% end %>
-<% end %>
-</section>
-<!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/twitter_books">TwitterBooks</a> -->
+<%= render(:erb, :_twitter, :locals => {:user_wants_twitter => @user1["twitter_books"], :tweets => @tweets}) %>
 <br></br>
 <br></br>
-<section id="idream_books">
-<% if @user1["idream_books"] %>
-  <a href="http://idreambooks.com/top-publications"><h2>iDreamBooks Reviews</h2>
-  <% @parsed_reviews.each do |book| %>
-   <ul>
-    <%= book["title"] %>
-    <%= book["author"]%>
-    <%= book["review_snippet"] %>
-   </ul>
-  <% end %>
-<% end %>
-</section>
-<!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/idream_books">iDreamBooks Reviews</a> -->
+
+<%= render(:erb, :_idream_books, :locals => {:user_wants_idream_books => @user1["idream_books"]})%>
 <br></br>
-<section id="book_browse_news">
-<% if @user1["book_browse_news"] %>
-  <a href="https://www.bookbrowse.com/news/index.cfm/start_id/9>"><h2>BookBrowse News</h2>
-    <ul><%= @feed.channel.title %></ul>
-      <% @feed.items.each do |item| %>
-    <ul><%= item.title %></ul>
-   <% end %>
-<% end %>
-</section>
-<!-- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="/book_browse_news">BookBrowse News</a>
- -->
+<%= render(:erb, :_book_browse_news, :locals => {:user_wants_book_browse_news => @user1["book_browse_news"]}) %>
+

@@ -1,7 +1,8 @@
-/* unvisited link */
+
 a:link {
     text-decoration: none;
     color: rgb(0,0,0);
+    background-color: rgb(248,248,248)
 }
 
 a:visited {
@@ -75,6 +76,7 @@ p {
 #profile_display {
   background: rgba(184,184,184,.8);
   border-radius: 20px;
+  font-weight: bold;
 }
 
 

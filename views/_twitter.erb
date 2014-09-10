@@ -1,0 +1,8 @@
+<section id="twitter_books">
+  <% if user_wants_twitter %>
+    <a href="https://twitter.com/TwitterBooks"><h2>TwitterBooks</h2>
+     <% tweets.each do |tweet| %>
+      <ul><%= tweet %></ul>
+     <% end %>
+  <% end %>
+</section>
