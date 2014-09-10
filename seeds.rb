@@ -7,7 +7,6 @@ $redis = Redis.new({:host => uri.host,
                     :port => uri.port,
                     :password => uri.password})
 
-$redis = Redis.new
 $redis.flushdb
 
 # file_contents = File.read('user_data.json')
