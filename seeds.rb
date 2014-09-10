@@ -14,7 +14,7 @@ $redis.flushdb
 # ruby_object = JSON.parse(file_contents)
 
 
-      "user1" = [
+    user1 = [
       {
       "user_name" => "Anastasia Konecky",
       "email" => "anastasiakonecky@gmail.com",
@@ -26,7 +26,7 @@ $redis.flushdb
 
 
 
-ruby_object["user1"].each_with_index do |user1, index|
+ruby_object[user1].each_with_index do |user1, index|
   $redis.set("user1:#{index}", user1.to_json)
 end
 
