@@ -72,10 +72,10 @@ class App < Sinatra::Base
     # state = SecureRandom.urlsafe_base64
     # session[:state] = state
     # @url = "#{base_url}?client_id=#{CLIENT_ID}&scope=#{scope}&redirect_uri=#{CALLBACK_URL}&state=#{state}"
-    render(:erb, :dashboard)
+    render(:erb, :index)
   end
 
-  get('/oauth_callback') do
+  # get('/oauth_callback') do
     # code = params[:code]
     # if session[:state] == params[:state]
     #     # response = HTTParty.post(
@@ -91,8 +91,8 @@ class App < Sinatra::Base
     #           })
     #     session[:access_token] = response["access_token"]
     # end
-    redirect('/')
-  end
+  #   redirect('/')
+  # end
 
 
   # get('/logout') do
