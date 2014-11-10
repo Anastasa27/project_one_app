@@ -48,9 +48,9 @@ class App < Sinatra::Base
   #######################
   #GIT HUB OAUTH API KEYS
   #######################
-  CLIENT_ID = "b8028cf37f30ca6dfb83"
-  CLIENT_SECRET = "3a220ae5024aade3020ac3ec03646e342d0e73d4"
-  CALLBACK_URL = ENV['PROJECT_ONE_REDIRECT_URI']
+  # CLIENT_ID = "b8028cf37f30ca6dfb83"
+  # CLIENT_SECRET = "3a220ae5024aade3020ac3ec03646e342d0e73d4"
+  # CALLBACK_URL = ENV['PROJECT_ONE_REDIRECT_URI']
   #######################
 
   ########################
@@ -67,38 +67,38 @@ class App < Sinatra::Base
   #######################
 
   get('/') do
-    base_url = "https://github.com/login/oauth/authorize"
-    scope = "user"
-    state = SecureRandom.urlsafe_base64
-    session[:state] = state
-    @url = "#{base_url}?client_id=#{CLIENT_ID}&scope=#{scope}&redirect_uri=#{CALLBACK_URL}&state=#{state}"
+    # base_url = "https://github.com/login/oauth/authorize"
+    # scope = "user"
+    # state = SecureRandom.urlsafe_base64
+    # session[:state] = state
+    # @url = "#{base_url}?client_id=#{CLIENT_ID}&scope=#{scope}&redirect_uri=#{CALLBACK_URL}&state=#{state}"
     render(:erb, :index)
   end
 
   get('/oauth_callback') do
-    code = params[:code]
-    if session[:state] == params[:state]
-        response = HTTParty.post(
-          "https://github.com/login/oauth/access_token",
-            :body => {
-              client_id: CLIENT_ID,
-              client_secret: CLIENT_SECRET,
-              code: code,
-              redirect_uri: CALLBACK_URL,
-              },
-            :headers => {
-             "Accept" => "application/json"
-              })
-        session[:access_token] = response["access_token"]
-    end
+    # code = params[:code]
+    # if session[:state] == params[:state]
+    #     # response = HTTParty.post(
+    #     #   "https://github.com/login/oauth/access_token",
+    #     #     :body => {
+    #     #       client_id: CLIENT_ID,
+    #     #       client_secret: CLIENT_SECRET,
+    #     #       code: code,
+    #     #       redirect_uri: CALLBACK_URL,
+    #     #       },
+    #         :headers => {
+    #          "Accept" => "application/json"
+    #           })
+    #     session[:access_token] = response["access_token"]
+    # end
     redirect('/')
   end
 
 
-  get('/logout') do
-    session[:access_token] = nil
-    redirect to('/')
-  end
+  # get('/logout') do
+  #   session[:access_token] = nil
+  #   redirect to('/')
+  # end
 
 
   get('/profile/new') do
