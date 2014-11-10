@@ -72,7 +72,7 @@ class App < Sinatra::Base
     # state = SecureRandom.urlsafe_base64
     # session[:state] = state
     # @url = "#{base_url}?client_id=#{CLIENT_ID}&scope=#{scope}&redirect_uri=#{CALLBACK_URL}&state=#{state}"
-    render(:erb, :index)
+    render(:erb, :dashboard)
   end
 
   get('/oauth_callback') do
